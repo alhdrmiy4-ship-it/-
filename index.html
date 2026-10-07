@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tasks — المهام اليومية</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- خط تجريدي عربي وأيقونات خفيفة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-theme">
+
+    <div class="app-container">
+        <!-- شريط التنقل العلوي -->
+        <header class="app-header">
+            <div>
+                <h1>Daily Tasks</h1>
+                <p id="current-date" class="date-text"></p>
+            </div>
+            <button id="theme-toggle-btn" class="icon-btn" title="تغيير المظهر">🌙</button>
+        </header>
+
+        <!-- كروت الإحصائيات السريعة -->
+        <section class="stats-card">
+            <div class="stat-item">
+                <span class="stat-num" id="stat-total">0</span>
+                <span class="stat-label">الإجمالي</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="stat-completed">0</span>
+                <span class="stat-label">المكتملة</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num" id="stat-pending">0</span>
+                <span class="stat-label">المتبقية</span>
+            </div>
+        </section>
+
+        <!-- شريط البحث والتصفية -->
+        <section class="controls-section">
+            <input type="text" id="search-input" placeholder="بحث عن مهمة...">
+            
+            <div class="filters-row">
+                <select id="filter-priority">
+                    <option value="ALL">كل الأولويات</option>
+                    <option value="HIGH">عالية</option>
+                    <option value="MEDIUM">متوسطة</option>
+                    <option value="LOW">منخفضة</option>
+                </select>
+
+                <select id="filter-category">
+                    <option value="ALL">كل التصنيفات</option>
+                    <option value="الدراسة">الدراسة</option>
+                    <option value="العمل">العمل</option>
+                    <option value="المنزل">المنزل</option>
+                    <option value="التسوق">التسوق</option>
+                    <option value="الصحة">الصحة</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- قائمة المهام -->
+        <main class="tasks-section">
+            <ul id="tasks-list" class="tasks-list"></ul>
+            <div id="empty-state" class="empty-state">
+                📝 لا توجد مهام حالياً، اضغط على زر (+) لإضافة مهمة جديدة.
+            </div>
+        </main>
+
+        <!-- زر إضافة مهمة floating FAB -->
+        <button id="add-task-fab" class="fab">+</button>
+    </div>
+
+    <!-- النافذة المنبثقة لإضافة / تعديل مهمة (Modal) -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-title">إضافة مهمة جديدة</h2>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+
+                <div class="form-group">
+                    <label for="task-title-input">اسم المهمة *</label>
+                    <input type="text" id="task-title-input" required placeholder="مثال: مراجعة درس الرياضيات">
+                </div>
+
+                <div class="form-group">
+                    <label for="task-desc-input">الوصف (اختياري)</label>
+                    <textarea id="task-desc-input" rows="3" placeholder="تفاصيل إضافية..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-priority-input">الأولوية</label>
+                        <select id="task-priority-input">
+                            <option value="LOW">منخفضة</option>
+                            <option value="MEDIUM" selected>متوسطة</option>
+                            <option value="HIGH">عالية</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-category-input">التصنيف</label>
+                        <select id="task-category-input">
+                            <option value="الدراسة">الدراسة</option>
+                            <option value="العمل">العمل</option>
+                            <option value="المنزل">المنزل</option>
+                            <option value="التسوق">التسوق</option>
+                            <option value="الصحة">الصحة</option>
+                            <option value="أخرى" selected>أخرى</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-time-input">الوقت (اختياري)</label>
+                        <input type="time" id="task-time-input">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="close-modal-btn" class="btn btn-secondary">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">حفظ المهمة</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
